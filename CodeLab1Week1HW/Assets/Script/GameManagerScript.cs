@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManagerScript : MonoBehaviour {
 
+    //THINGS TO ADD
+    //Add in Pickup Objects that can SLOW DOWN a player or SPEED UP a player.
+    //Add in TRAPS. When you're an ATTACKER you get TWO traps you can lay.
+
     GameObject Player1;
     GameObject Player2;
 
@@ -27,6 +31,9 @@ public class GameManagerScript : MonoBehaviour {
     float pointTimer;
 
     GameObject GameOver;
+
+    public float increaseSpeed;
+    public float increaseSize;
 
 	// Use this for initialization
 	void Start () {
@@ -57,6 +64,9 @@ public class GameManagerScript : MonoBehaviour {
         timer = 10.5f;
         timerOn = true;
 
+        increaseSpeed = 0;
+        increaseSize = 0;
+
 	}
 	
 	// Update is called once per frame
@@ -70,10 +80,10 @@ public class GameManagerScript : MonoBehaviour {
 
         if (attacker == 1)
         {
-            Player1.transform.localScale = new Vector3(4f, 4f, 4f);
-            Player2.transform.localScale = new Vector3(1f, 1f, 1f);
-            Player1ControlScript.speed = 15f;
-            Player2ControlScript.speed = 25f;
+            Player1.transform.localScale = new Vector3(4f + increaseSize, 4f + increaseSize, 4f + increaseSize);
+            Player2.transform.localScale = new Vector3(1f + increaseSize, 1f + increaseSize, 1f + increaseSize);
+            Player1ControlScript.speed = 15f + increaseSpeed;
+            Player2ControlScript.speed = 25f + increaseSpeed;
             player1Attacker = true;
             player2Attacker = false;
             Debug.Log("Attacker = 1");
@@ -90,10 +100,10 @@ public class GameManagerScript : MonoBehaviour {
 
         if (attacker == 2)
         {
-            Player2.transform.localScale = new Vector3(4f, 4f, 4f);
-            Player1.transform.localScale = new Vector3(1f, 1f, 1f);
-            Player2ControlScript.speed = 15f;
-            Player1ControlScript.speed = 25f;
+            Player2.transform.localScale = new Vector3(4f + increaseSize, 4f + increaseSize, 4f + increaseSize);
+            Player1.transform.localScale = new Vector3(1f + increaseSize, 1f + increaseSize, 1f + increaseSize);
+            Player2ControlScript.speed = 15f + increaseSpeed;
+            Player1ControlScript.speed = 25f + increaseSpeed;
             player2Attacker = true;
             player1Attacker = false;
             Debug.Log("Attcker = 2");
