@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerDestroyScript : MonoBehaviour {
 
     GameObject goal;
-    public float radius = 4.5f;
+    public float radius = 4f;
 
     GameObject centerPoint;
 
@@ -22,6 +22,12 @@ public class PlayerDestroyScript : MonoBehaviour {
     GameObject player1;
     GameObject player2;
 
+    GameObject sonic;
+    SpeedUpScript speedUpScript;
+
+    public GameObject sonicPrefab;
+
+
 
     // Use this for initialization
     void Start () {
@@ -35,6 +41,9 @@ public class PlayerDestroyScript : MonoBehaviour {
 
         player1 = GameObject.Find("Player1");
         player2 = GameObject.Find("Player2");
+
+        sonic = GameObject.Find("Sonic");
+        speedUpScript = sonic.GetComponent<SpeedUpScript>();
 
     }
 
@@ -80,11 +89,17 @@ public class PlayerDestroyScript : MonoBehaviour {
         radius += 15;
 
         //the players get slightly larger
-        GameManagerScript.increaseSize = 5f;
+        GameManagerScript.increaseSize += 1f;
 
         //the players get faster
-        GameManagerScript.increaseSpeed = 20f;
+        GameManagerScript.increaseSpeed += 10f;
 
+        //speedBoost is reset
+        speedUpScript.player1SpeedBoost = 1;
+        speedUpScript.player2SpeedBoost = 1;
+
+        //spawn a new speedboost
+        GameObject newSonic = Instantiate(sonicPrefab, (Random.insideUnitCircle * radius), Quaternion.identity) as GameObject;
 
 
     }

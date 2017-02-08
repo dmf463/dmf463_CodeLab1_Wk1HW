@@ -35,6 +35,9 @@ public class GameManagerScript : MonoBehaviour {
     public float increaseSpeed;
     public float increaseSize;
 
+    GameObject sonic;
+    SpeedUpScript speedUpScript;
+
 	// Use this for initialization
 	void Start () {
 
@@ -60,6 +63,9 @@ public class GameManagerScript : MonoBehaviour {
         player1ScoreCounter = 0;
         player2ScoreCounter = 0;
 
+        sonic = GameObject.Find("Sonic");
+        speedUpScript = sonic.GetComponent<SpeedUpScript>();
+
 
         timer = 10.5f;
         timerOn = true;
@@ -82,8 +88,8 @@ public class GameManagerScript : MonoBehaviour {
         {
             Player1.transform.localScale = new Vector3(4f + increaseSize, 4f + increaseSize, 4f + increaseSize);
             Player2.transform.localScale = new Vector3(1f + increaseSize, 1f + increaseSize, 1f + increaseSize);
-            Player1ControlScript.speed = 15f + increaseSpeed;
-            Player2ControlScript.speed = 25f + increaseSpeed;
+            Player1ControlScript.speed = (15f + increaseSpeed) * speedUpScript.player1SpeedBoost;
+            Player2ControlScript.speed = (25f + increaseSpeed) * speedUpScript.player2SpeedBoost;
             player1Attacker = true;
             player2Attacker = false;
             Debug.Log("Attacker = 1");
@@ -102,8 +108,8 @@ public class GameManagerScript : MonoBehaviour {
         {
             Player2.transform.localScale = new Vector3(4f + increaseSize, 4f + increaseSize, 4f + increaseSize);
             Player1.transform.localScale = new Vector3(1f + increaseSize, 1f + increaseSize, 1f + increaseSize);
-            Player2ControlScript.speed = 15f + increaseSpeed;
-            Player1ControlScript.speed = 25f + increaseSpeed;
+            Player1ControlScript.speed = (15f + increaseSpeed) * speedUpScript.player1SpeedBoost;
+            Player2ControlScript.speed = (25f + increaseSpeed) * speedUpScript.player2SpeedBoost;
             player2Attacker = true;
             player1Attacker = false;
             Debug.Log("Attcker = 2");
@@ -130,7 +136,6 @@ public class GameManagerScript : MonoBehaviour {
             GameOver.GetComponent<MeshRenderer>().enabled = true;
             Player1ControlScript.enabled = false;
             Player2ControlScript.enabled = false;
-            this.enabled = false;
         }
 
 
